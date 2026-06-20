@@ -1,0 +1,10 @@
+# all files — repo owner must review every PR
+*  @RanjithKumar-Rama
+
+# infra and cluster changes need explicit sign-off
+/terraform/  @RanjithKumar-Rama
+/k8s/        @RanjithKumar-Rama
+/gitops/     @RanjithKumar-Rama
+
+# changes to CI or security tooling
+/.github/    @RanjithKumar-Rama
