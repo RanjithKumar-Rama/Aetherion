@@ -1,5 +1,13 @@
 grafana:
-  adminPassword: "*******"
+  # password is stored in a k8s secret, not here
+  # kubectl create secret generic grafana-admin-secret \
+  #   --from-literal=admin-user=admin \
+  #   --from-literal=admin-password='<strong-password>' \
+  #   -n monitoring
+  admin:
+    existingSecret: grafana-admin-secret
+    userKey: admin-user
+    passwordKey: admin-password
   sidecar:
     dashboards:
       enabled: true
