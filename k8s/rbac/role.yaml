@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: aetherion
+  namespace: aetherion
+  labels:
+    app.kubernetes.io/name: aetherion
+rules:
+  # read-only access to configmaps in its own namespace
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "list", "watch"]

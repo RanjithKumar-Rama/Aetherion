@@ -1,0 +1,31 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-resource-limits
+  annotations:
+    policies.kyverno.io/title: Require Resource Limits
+    policies.kyverno.io/category: Best Practices
+    policies.kyverno.io/description: >-
+      All containers in the aetherion namespace must declare CPU and memory limits.
+      Start in Audit mode; switch to Enforce once workloads are confirmed compliant.
+spec:
+  validationFailureAction: Audit
+  background: true
+  rules:
+    - name: require-limits
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              namespaces:
+                - aetherion
+      validate:
+        message: "CPU and memory limits must be set on every container."
+        pattern:
+          spec:
+            containers:
+              - resources:
+                  limits:
+                    cpu: "?*"
+                    memory: "?*"

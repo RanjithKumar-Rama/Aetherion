@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: aetherion
+  namespace: monitoring
+  labels:
+    # the release label for installing kube-prometheus-stack
+    release: kube-prom
+spec:
+  namespaceSelector:
+    matchNames:
+      - aetherion
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: aetherion
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 10s
